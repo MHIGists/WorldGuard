@@ -87,10 +87,6 @@ class BlockGuard implements Listener
     {
         $explosionEntity = $event->getEntity();
 
-        if ($explosionEntity === null) {
-            return;
-        }
-
         $explosionPos = $explosionEntity->getPosition();
         $worldData = WorldData::getInstance();
         $guardData = GuardData::getInstance();
