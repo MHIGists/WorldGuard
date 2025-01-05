@@ -38,7 +38,7 @@ class WorldData
         if ($world == null) {
             return false;
         }
-        return $position->isValid() && $world == Server::getInstance()->getWorldManager()->getWorldByName($position->getWorld()->getFolderName()) &&
+        return $position->isValid() && $world === Server::getInstance()->getWorldManager()->getWorldByName($position->getWorld()->getFolderName()) &&
             $position->x >= min($minX, $maxX) && $position->x <= max($minX, $maxX) &&
             $position->y >= min($minY, $maxY) && $position->y <= max($minY, $maxY) &&
             $position->z >= min($minZ, $maxZ) && $position->z <= max($minZ, $maxZ);
@@ -53,7 +53,7 @@ class WorldData
         }
     }
 
-    public function getName(Position $position)
+    public function getName(Position $position): false|int|string
     {
         $bool = "";
         if (!isset($this->api->db["name"])) {
