@@ -1,30 +1,33 @@
 <?php
 
-namespace gamegam\WorldGuardPlugin\EvnetListener\WorldGuardEvent;
+namespace MHIGists\WorldGuardPlugin\EventListeners\WorldGuardEvent;
 
-use gamegam\WorldGuardPlugin\Data\GuarddData;
-use gamegam\WorldGuardPlugin\Main;
-use gamegam\WorldGuardPlugin\WorldData;
-use gamegam\WorldGuardPlugin\WorldGuard;
 use pocketmine\entity\object\Painting;
 use pocketmine\event\entity\EntityDamageByEntityEvent;
 use pocketmine\event\entity\EntityDamageEvent;
 use pocketmine\event\Listener;
 use pocketmine\player\Player;
 
+use MHIGists\WorldGuardPlugin\Data\GuardData;
+use MHIGists\WorldGuardPlugin\Main;
+use MHIGists\WorldGuardPlugin\WorldData;
+use MHIGists\WorldGuardPlugin\WorldGuard;
+
 class Damage implements Listener{
 
-	public $tag, $api;
+	public mixed $tag;
+    public Main $api;
 
-	public function __construct(Main $api){
+    public function __construct(Main $api){
 		$this->tag = WorldGuard::getInstance()->getTag();
 		$this->api = $api;
 	}
 
-	public function onDamage(EntityDamageEvent $ev){
+	public function onDamage(EntityDamageEvent $ev): void
+    {
 		$data = WorldData::getInstance();
 		$entity = $ev->getEntity();
-		$d = GuarddData::getInstance();
+		$d = GuardData::getInstance();
 		$pos = $entity->getPosition();
 		$name = $data->getName($pos);
 		if ($entity instanceof Player){

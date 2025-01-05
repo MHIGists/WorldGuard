@@ -1,24 +1,25 @@
 <?php
 
-namespace gamegam\WorldGuardPlugin;
+namespace MHIGists\WorldGuardPlugin;
 
-use gamegam\WorldGuardPlugin\command\WorldGuardCommand;
-use gamegam\WorldGuardPlugin\EvnetListener\Blocks;
-use gamegam\WorldGuardPlugin\EvnetListener\WorldGuardEvent\BlocGuard;
-use gamegam\WorldGuardPlugin\EvnetListener\WorldGuardEvent\Damage;
-use gamegam\WorldGuardPlugin\EvnetListener\WorldGuardEvent\Entity;
-use gamegam\WorldGuardPlugin\EvnetListener\WorldGuardEvent\Player;
-use gamegam\WorldGuardPlugin\Language\ABC;
 use pocketmine\event\Listener;
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\Filesystem;
+
 use Symfony\Component\Filesystem\Path;
-use pocketmine\event\plyaer\PlayerJoinEvent;
+
+use MHIGists\WorldGuardPlugin\command\WorldGuardCommand;
+use MHIGists\WorldGuardPlugin\EventListeners\Blocks;
+use MHIGists\WorldGuardPlugin\EventListeners\WorldGuardEvent\BlockGuard;
+use MHIGists\WorldGuardPlugin\EventListeners\WorldGuardEvent\Damage;
+use MHIGists\WorldGuardPlugin\EventListeners\WorldGuardEvent\Entity;
+use MHIGists\WorldGuardPlugin\EventListeners\WorldGuardEvent\Player;
+use MHIGists\WorldGuardPlugin\Language\ABC;
 
 class Main extends PluginBase implements Listener{
 
 	public array $db = [];
-	public $abc;
+	public ABC $abc;
 
 	public function onEnable() : void{
 		$path = Path::join($this->getDataFolder(), "worldGuard.json");
@@ -27,16 +28,16 @@ class Main extends PluginBase implements Listener{
 		}
 
 		$this->abc = new ABC($this);
-		$this->abc->Load($this->getConfig()->get("language"));
+		$this->abc->load($this->getConfig()->get("language"));
 
 		$this->getServer()->getCommandMap()->registerAll($this->getName(), [
 			new WorldGuardCommand($this)
 		]);
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
-		$this->registerEvnet([
+		$this->registerEvents([
 			$this,
 			new Blocks($this),
-			new BlocGuard($this),
+			new BlockGuard($this),
 			new Damage($this),
 			new Player($this),
 			new Entity($this)
@@ -44,9 +45,10 @@ class Main extends PluginBase implements Listener{
 		);
 	}
 
-	public function registerEvnet(array $s){
-		foreach($s as $list){
-			$this->getServer()->getPluginManager()->registerEvents($list, $this);
+	public function registerEvents(array $events): void
+    {
+		foreach($events as $event){
+			$this->getServer()->getPluginManager()->registerEvents($event, $this);
 		}
 	}
 

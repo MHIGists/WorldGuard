@@ -1,30 +1,32 @@
 <?php
 
-namespace gamegam\WorldGuardPlugin\EvnetListener\WorldGuardEvent;
+namespace MHIGists\WorldGuardPlugin\EventListeners\WorldGuardEvent;
 
-use gamegam\WorldGuardPlugin\Data\GuarddData;
-use gamegam\WorldGuardPlugin\Main;
-use gamegam\WorldGuardPlugin\WorldData;
-use gamegam\WorldGuardPlugin\WorldGuard;
 use pocketmine\entity\object\Painting;
 use pocketmine\event\entity\EntitySpawnEvent;
 use pocketmine\event\Listener;
 use pocketmine\math\Vector3;
 use pocketmine\player\Player;
 
+use MHIGists\WorldGuardPlugin\Data\GuardData;
+use MHIGists\WorldGuardPlugin\Main;
+use MHIGists\WorldGuardPlugin\WorldData;
+use MHIGists\WorldGuardPlugin\WorldGuard;
+
 class Entity implements Listener{
 
 	public Main $api;
-	public $tag;
+	public mixed $tag;
 
 	public function __construct(Main $api){
 		$this->tag = WorldGuard::getInstance()->getTag();
 		$this->api = $api;
 	}
 
-	public function MobSpawn(EntitySpawnEvent $ev){
+	public function onMobSpawn(EntitySpawnEvent $ev): void
+    {
 		$pos = $ev->getEntity()->getPosition();
-		$guardData = GuarddData::getInstance();
+		$guardData = GuardData::getInstance();
 		$guard = WorldData::getInstance();
 		if ($guard->getBlockJoin($pos)){
 			if ($guardData->getMobSpawn($guard->getName($pos))){

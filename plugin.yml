@@ -1,9 +1,9 @@
 name: WorldGuardPlugin
-main: gamegam\WorldGuardPlugin\Main
-author: gamegam
+main: MHIGists\WorldGuardPlugin\Main
+author: MHIGists
 version: 0.1
 api: 5.0.0
 
 permissions:
-  WorldGuardPlugin.permissimon:
+  WorldGuardPlugin.permission:
     default: op

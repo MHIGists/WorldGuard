@@ -1,8 +1,8 @@
 <?php
 
-namespace gamegam\WorldGuardPlugin\Language;
+namespace MHIGists\WorldGuardPlugin\Language;
 
-class ConfigGuard{
+enum ConfigGuard{
 
 	public const ingame = "ingame";
 	public const HELP = "help";

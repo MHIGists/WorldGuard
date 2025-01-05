@@ -1,8 +1,8 @@
 <?php
 
-namespace gamegam\WorldGuardPlugin\Language;
+namespace MHIGists\WorldGuardPlugin\Language;
 
-use gamegam\WorldGuardPlugin\Main;
+use MHIGists\WorldGuardPlugin\Main;
 
 class ABC{
 
@@ -12,16 +12,16 @@ class ABC{
 		$this->api = $api;
 	}
 
-	public $def = "en-US";
-	private $list = [
+	public string $def = "en-US";
+	private array $list = [
 		"en-US",
 		"ko-KR"
 	];
 
-	public $language;
+	public string $language;
 	public $translations;
 
-	public function Load(string $string): void {
+	public function load(string $string): void {
 		$api = $this->api;
 		$folder = $api->getDataFolder() . "Language";
 		@mkdir($folder);
@@ -37,7 +37,7 @@ class ABC{
 	}
 
 
-	public function getString(string $translation, array $variables = []): string{
+	public function getString(string $translation): string{
 		$data = $this->translations[$translation] ?? null;
 		if ($data == null){
 			return " not found: ". $translation;

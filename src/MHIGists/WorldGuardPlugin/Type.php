@@ -1,6 +1,6 @@
 <?php
 
-namespace gamegam\WorldGuardPlugin;
+namespace MHIGists\WorldGuardPlugin;
 
 class Type{
 
