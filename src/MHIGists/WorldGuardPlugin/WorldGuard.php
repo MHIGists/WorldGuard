@@ -3,6 +3,7 @@
 namespace MHIGists\WorldGuardPlugin;
 
 use pocketmine\player\Player;
+use pocketmine\plugin\Plugin;
 use pocketmine\Server;
 use pocketmine\utils\SingletonTrait;
 
@@ -10,7 +11,7 @@ class WorldGuard{
 
 	use SingletonTrait;
 
-	public ?Main $api;
+	public ?Plugin $api;
 
 	public function __construct(){
 		$this->api = Server::getInstance()->getPluginManager()->getPlugin("WorldGuardPlugin");

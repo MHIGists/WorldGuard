@@ -3,6 +3,7 @@
 namespace MHIGists\WorldGuardPlugin;
 
 use pocketmine\player\Player;
+use pocketmine\plugin\Plugin;
 use pocketmine\Server;
 use pocketmine\utils\SingletonTrait;
 use pocketmine\world\Position;
@@ -12,7 +13,7 @@ class WorldData
 
     use SingletonTrait;
 
-    public ?\pocketmine\plugin\Plugin $api;
+    public ?Plugin $api;
     public WorldGuard $worldguard;
 
     public function __construct()

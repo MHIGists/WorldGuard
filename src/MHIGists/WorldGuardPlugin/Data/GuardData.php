@@ -2,26 +2,23 @@
 
 namespace MHIGists\WorldGuardPlugin\Data;
 
+use pocketmine\plugin\Plugin;
 use pocketmine\Server;
 use pocketmine\utils\SingletonTrait;
 
 use MHIGists\WorldGuardPlugin\WorldData;
-use MHIGists\WorldGuardPlugin\WorldGuard;
-use MHIGists\WorldGuardPlugin\Main;
 
 class GuardData
 {
     use SingletonTrait;
 
     private WorldData $data;
-    private WorldGuard $worldGuard;
-    private ?Main $api;
+    private ?Plugin $api;
 
     public function __construct()
     {
         self::setInstance($this);
         $this->api = Server::getInstance()->getPluginManager()->getPlugin("WorldGuardPlugin");
-        $this->worldGuard = WorldGuard::getInstance();
         $this->data = WorldData::getInstance();
     }
 

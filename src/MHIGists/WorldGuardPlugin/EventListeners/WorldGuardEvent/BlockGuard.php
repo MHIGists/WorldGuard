@@ -2,6 +2,7 @@
 
 namespace MHIGists\WorldGuardPlugin\EventListeners\WorldGuardEvent;
 
+use MHIGists\WorldGuardPlugin\Main;
 use pocketmine\block\Lava;
 use pocketmine\block\Water;
 use pocketmine\event\block\BlockBreakEvent;
@@ -18,9 +19,9 @@ use MHIGists\WorldGuardPlugin\WorldGuard;
 class BlockGuard implements Listener
 {
     private string $tag;
-    private object $api;
+    private Main $api;
 
-    public function __construct($api)
+    public function __construct(Main $api)
     {
         $this->tag = WorldGuard::getInstance()->getTag();
         $this->api = $api;
