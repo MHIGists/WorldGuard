@@ -31,7 +31,7 @@ class Blocks implements Listener
             'x' => $pos->getX(),
             'y' => $pos->getY(),
             'z' => $pos->getZ(),
-            'world' => $block->getWorld()->getFolderName(),
+            'world' => $pos->getWorld()->getFolderName(),
         ];
     }
 
