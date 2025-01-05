@@ -31,7 +31,6 @@ class Damage implements Listener{
 		$pos = $entity->getPosition();
 		$name = $data->getName($pos);
 		if ($entity instanceof Player){
-			//invincible
 			if ($data->getBlockJoin($pos)){
 				if ($d->getinvincible($name)){
 					$ev->cancel();
