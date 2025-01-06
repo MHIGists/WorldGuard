@@ -32,7 +32,7 @@ class Player implements Listener{
 		$name = $data->getName($pos);
 		if ($data->getBlockJoin($pos)){
 			if ($guardData->getChat($name)){
-				if(! $player->hasPermission("WorldGuardPlugin.permissimon")){
+				if(! $player->hasPermission("WorldGuardPlugin.permission")){
 					$player->sendMessage($this->tag. $this->api->getAPI()->getString("chat"));
 					$ev->cancel();
 				}
@@ -48,7 +48,7 @@ class Player implements Listener{
 		$pos = $player->getPosition();
 		$name = $data->getName($pos);
 		$ac = $ev->getAction();
-		if(! $player->hasPermission("WorldGuardPlugin.permissimon")){
+		if(! $player->hasPermission("WorldGuardPlugin.permission")){
 			if($data->getBlockJoin($pos)){
 				if ($guardData->getInteract($name)){
 					if ($ac == 0 && ! $block instanceof ItemFrame){
@@ -64,21 +64,28 @@ class Player implements Listener{
         return false;
 	}
 
-	public function onMove(PlayerMoveEvent $ev): void
+    public function onMove(PlayerMoveEvent $ev): void
     {
-		$player = $ev->getPlayer();
-		$pos = $player->getPosition();
-		$data = WorldData::getInstance();
-		$guardData = GuardData::getInstance();
-		$name = $data->getName($pos);
-		if($data->getBlockJoin($pos)){
-			if ($guardData->getfire($name)){
-                $player->extinguish();
-			}
-            $player->sendMessage("You've entered a protected zone!");
-		}
-        if ($data->getBlockJoin($ev->getFrom()) && !$data->getBlockJoin($ev->getTo())){
-            $player->sendMessage("You're now out of the protected zone");
+        $player = $ev->getPlayer();
+        $from = $ev->getFrom();
+        $to = $ev->getTo();
+        $data = WorldData::getInstance();
+        $guardData = GuardData::getInstance();
+        $zoneName = '';
+
+        if (!$data->getBlockJoin($from) && $data->getBlockJoin($to)) {
+            $player->sendMessage("You're now entering: " . $zoneName);
+        }
+
+        if ($data->getBlockJoin($from) && !$data->getBlockJoin($to)) {
+            $player->sendMessage("You're now out of the $zoneName zone");
+        }
+
+        $pos = $player->getPosition();
+        $name = $data->getName($pos);
+        if ($data->getBlockJoin($pos) && $guardData->getFire($name)) {
+            $player->extinguish();
         }
     }
+
 }
